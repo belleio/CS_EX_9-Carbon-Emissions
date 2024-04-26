@@ -4,7 +4,7 @@ import requests
 import os
 
 # Load the airport codes CSV file
-airport_data = pd.read_csv("C:/Users/Surface/Downloads/CSCarbon/airport-codes.csv")
+airport_data = pd.read_csv("airport-codes.csv")
 
 # Function to get carbon emissions using Carbon Interface API
 def get_carbon_emissions(departure, destination):
@@ -73,7 +73,7 @@ def calculate_page():
         st.write(f'{trees_needed} trees to offset {co2_emissions} kilograms of CO2.')
 
         # Display tree image corresponding to the number of trees
-        tree_image_path = r"C:/Users/Surface/Downloads/CSCarbon/tree.png"  # Path to the tree image
+        tree_image_path = "tree.png"
 
         if os.path.exists(tree_image_path):
             for _ in range(trees_needed):
