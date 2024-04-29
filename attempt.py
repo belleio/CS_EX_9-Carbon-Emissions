@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import requests
 import os
+from streamlit_extras.let_it_rain import rain
+import base64
 
 # Load the airport codes CSV file
 airport_data = pd.read_csv("airport-codes.csv")
@@ -32,13 +34,31 @@ def get_carbon_emissions(departure, destination):
 
 def home_page():
     st.title("Wie nachhaltig sind Ihre Reisen?")
-    st.subheader("Where are you going on this trip?")
+    st.text("Here we put in whatever we wanna say to explain our project")
+    # add a description of project and maybe a picture
 
+    ### gif from local file
+    file_path = "flightgif.gif"
+    file_ = open(file_path,"rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
+
+    width = 200
+
+    st.markdown(
+        f'<img src="data:image/gif;base64,{data_url}" alt="flight gif" width="{width}">',
+        unsafe_allow_html=True,
+    )
+
+    st.subheader("Where are you going on this trip?")
     # Dropdown for selecting departure airport
     departure_airport = st.selectbox('Select Departure Airport', airport_data['iata_code'])
 
     # Dropdown for selecting destination airport
     destination_airport = st.selectbox('Select Destination Airport', airport_data['iata_code'])
+
+    # add with vehicle/train?
 
     if st.button('Calculate your CO2 Emission'):
         # Calculate carbon emissions
@@ -54,9 +74,17 @@ def home_page():
         # Redirect to the results page
         st.session_state.page = "Calculate"
 
-
+# Raining airplanes
 def calculate_page():
     st.title('Results')
+    def example():
+        rain(
+            emoji="✈️",
+            font_size=54,
+            falling_speed=3,
+            animation_length="5s",
+        )
+    example()
 
     # Retrieve results from session state
     results = st.session_state.results
@@ -73,13 +101,22 @@ def calculate_page():
         st.write(f'{trees_needed} trees to offset {co2_emissions} kilograms of CO2.')
 
         # Display tree image corresponding to the number of trees
+        # display trees in more organised way 
         tree_image_path = "tree.png"
 
         if os.path.exists(tree_image_path):
-            for _ in range(trees_needed):
-                st.image(tree_image_path, width=100)
+            num_rows = (trees_needed // 6) + (1 if trees_needed % 6 != 0 else 0)
+            for i in range(num_rows):
+                cols = st.columns(6)
+                for j in range(6):
+                    tree_index = i * 6 + j
+                    if tree_index < trees_needed:
+                        cols[j].image(tree_image_path, width=100)
+                    else:
+                        break
         else:
             st.warning("Tree image not found.")
+        # Add bar graph with comparison emissions
 
     else:
         st.error("No results available. Please calculate CO2 emissions first.")
@@ -106,8 +143,9 @@ def calculate_page():
     # Display the custom HTML
     st.markdown(button_html, unsafe_allow_html=True)
 
-
-
+#Add return to homepage button
+    if st.button('Return to Homepage'):
+        st.session_state.page = "Home"
 
 def main():
     if 'page' not in st.session_state:
