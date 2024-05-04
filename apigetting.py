@@ -1,3 +1,4 @@
+import requests
 def get_carbon_emissions_flight(departure, destination):
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
