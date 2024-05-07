@@ -12,10 +12,10 @@ from distancecalculate import haversine_distance
 #Tree image
 from treecode import display_tree_images
 
-
-# Load the airport codes CSV file
+# Loads the airport codes CSV file
 airport_data = pd.read_csv("airport-codes.csv")
 
+# Import APIs
 from apigetting import(
     get_carbon_emissions_flight,
     get_carbon_emissions_vehicles,
@@ -24,9 +24,11 @@ from apigetting import(
     get_vehicle_models
 )
 
+#Display flight details page
 def flight_calculate_page():
     st.title('Flight Results')
 
+#Shows flight emojis raining down on page
     def flightemoji():
         rain(
             emoji="✈️",
@@ -65,6 +67,7 @@ def flight_calculate_page():
     if st.button('Return to Homepage'):
         st.session_state.page = "Home"
 
+# Display vehicle details page
 def vehicle_calculate_page():
     st.title('Vehicle Results')
     def caremoji():
@@ -100,6 +103,7 @@ def vehicle_calculate_page():
     if st.button('Return to Homepage'):
         st.session_state.page = "Home"
 
+#Display train details page
 def train_calculate_page():
     st.title('Train Results')
     def trainemoji():
@@ -135,6 +139,7 @@ def train_calculate_page():
     if st.button('Return to Homepage'):
         st.session_state.page = "Home"
 
+# Displays the home page
 def home_page():
     st.title("Wie nachhaltig sind Ihre Reisen?")
     st.text("Curious about the environmental impact of your transportation choices?\nOur site visualizes the carbon emissions of different modes of travel, \nhelping you make more informed and eco-friendly decisions.\nJoin us in exploring sustainable transportation options for a greener future!.")

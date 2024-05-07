@@ -15,5 +15,5 @@ def carbon_offset_button():
         </style>
         <a href="https://onetreeplanted.org/products/carbon-offset" class="button" style="color: white;">Want to offset your travel’s carbon footprint?</a>
         """
-
+ 
     return button_html
