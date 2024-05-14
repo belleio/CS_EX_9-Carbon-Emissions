@@ -1,4 +1,6 @@
 def carbon_offset_button():
+    #Carbon Offset: https://onetreeplanted.org/products/carbon-offset
+    #When the CO2 emissions results are shown, this button redirects you to a website on how to offset your emissions.   
     button_html = """
         <style>
         .button {

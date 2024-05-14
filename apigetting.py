@@ -1,5 +1,8 @@
 import requests
+
+# Carbon Emissions API:https://www.carboninterface.com/api/v1/estimates 
 def get_carbon_emissions_flight(departure, destination):
+    # Fetch the carbon emission of the flight based on the departure airport and destination airport
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
         "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
@@ -22,6 +25,7 @@ def get_carbon_emissions_flight(departure, destination):
         print(f"Error: {e}")
 
 def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_id):
+    # Fetch the carbon emission of the car based on the distance unit, distance, and vehicle model id
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
         "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
@@ -42,9 +46,10 @@ def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_i
         car_type = f"{attributes['vehicle_make']} {attributes['vehicle_model']} ({attributes['vehicle_year']})"
         return carbon_emissions, car_type
     except requests.exceptions.RequestException as e:
-        st.error(f"Error: {e}")
+        print(f"Error: {e}")
 
 def get_train_carbon_emissions(distance_km):
+    # Fetch the carbon emission of the train based on the distance 
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
         "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
@@ -70,6 +75,7 @@ def get_train_carbon_emissions(distance_km):
         st.error(f"Error: {e}")
 
 def get_vehicle_makes():
+    # Returns an array of Vehicle Makes that can be queried for their specific Vehicle Models.
     url = "https://www.carboninterface.com/api/v1/vehicle_makes"
     headers = {
         "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",

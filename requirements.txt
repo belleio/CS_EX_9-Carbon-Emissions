@@ -2,3 +2,4 @@ pip install pandas
 pip install requests
 pip install streamlit
 pip install streamlit_extras
+pip install matplotlib
