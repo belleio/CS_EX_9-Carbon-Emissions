@@ -24,7 +24,7 @@ def get_carbon_emissions_flight(departure, destination):
 def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_id):
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer hx633ybr4aLHrtaDA6CuQ",
+        "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -47,7 +47,7 @@ def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_i
 def get_train_carbon_emissions(distance_km):
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer hx633ybr4aLHrtaDA6CuQ",
+        "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -72,7 +72,7 @@ def get_train_carbon_emissions(distance_km):
 def get_vehicle_makes():
     url = "https://www.carboninterface.com/api/v1/vehicle_makes"
     headers = {
-        "Authorization": "Bearer hx633ybr4aLHrtaDA6CuQ",
+        "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
         "Content-Type": "application/json"
     }
     try:
@@ -89,7 +89,7 @@ def get_vehicle_models(vehicle_makes, selected_make):
     # Fetch the vehicle models based on the selected make
     url = f"https://www.carboninterface.com/api/v1/vehicle_makes/{vehicle_makes[selected_make]}/vehicle_models"
     headers = {
-        "Authorization": "Bearer hx633ybr4aLHrtaDA6CuQ",
+        "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
         "Content-Type": "application/json"
     }
     try:
