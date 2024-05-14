@@ -2,7 +2,7 @@ import requests
 def get_carbon_emissions_flight(departure, destination):
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer hx633ybr4aLHrtaDA6CuQ",
+        "Authorization": "Bearer Nn5ZD9scomRpnX77GwMw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -19,7 +19,7 @@ def get_carbon_emissions_flight(departure, destination):
         data = response.json()
         return data['data']['attributes']['carbon_kg']
     except requests.exceptions.RequestException as e:
-        st.error(f"Error: {e}")
+        print(f"Error: {e}")
 
 def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_id):
     url = "https://www.carboninterface.com/api/v1/estimates"
