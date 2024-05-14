@@ -185,6 +185,8 @@ def home_page():
 
             # Calculate distance in kilometers
             distance_km = haversine_distance(departure_lat, departure_lon, destination_lat, destination_lon)
+            
+            # Get train and car carbon emissions for the same distance
             carbon_emissions_t = get_train_carbon_emissions(distance_km)
             carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
             # print(carbon_emissions)
@@ -232,7 +234,7 @@ def home_page():
         if st.button('Calculate CO2 Emission'):
             # Call the function to calculate train emissions
             carbon_emissions = get_train_carbon_emissions(distance_km)
-            
+            # Get the carbon emission of the car for the same distance
             carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
 
             colors = ['blue','red']
@@ -287,6 +289,7 @@ def home_page():
 
             # Calculate CO2 emissions for vehicle and get car type
             carbon_emissions, car_type = get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_id)
+            # Calculate CO2 emissions for train to compare
             carbon_emissions_t = get_train_carbon_emissions(distance_value)
             
             colors = ['blue','red']
@@ -294,7 +297,7 @@ def home_page():
             carbon_emission = [carbon_emissions,carbon_emissions_t]
 
             print(carbon_emission)
-            # Plotting the bar chart
+            # Plotting the bar chart of comparison
             plt.bar(transport_types, carbon_emission, color=colors)
             plt.xlabel('Transport Type')
             plt.ylabel('Carbon Emissions (kg)')
