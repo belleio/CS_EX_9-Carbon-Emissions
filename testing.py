@@ -57,7 +57,7 @@ def flight_calculate_page():
 
         display_tree_images(trees_needed)
         fig, ax = plt.subplots()
-        ax.bar(['Trees Needed'], [trees_needed], color='green')
+        ax.bar(['Trees Needed per Mode of Transport'], [trees_needed], color='green')
         ax.set_ylabel('Number of Trees')
         ax.set_title('Trees Needed to Offset CO2 Emissions')
         st.pyplot(fig)
@@ -101,7 +101,7 @@ def vehicle_calculate_page():
     display_tree_images(trees_needed)
     
     fig, ax = plt.subplots()
-    ax.bar(['Trees Needed'], [trees_needed], color='green')
+    ax.bar(['Trees Needed per Mode of Transport'], [trees_needed], color='green')
     ax.set_ylabel('Number of Trees')
     ax.set_title('Trees Needed to Offset CO2 Emissions')
     st.pyplot(fig)
@@ -144,7 +144,7 @@ def train_calculate_page():
     display_tree_images(trees_needed)
     
     fig, ax = plt.subplots()
-    ax.bar(['Trees Needed'], [trees_needed], color='green')
+    ax.bar(['Trees Needed per Mode of Transport'], [trees_needed], color='green')
     ax.set_ylabel('Number of Trees')
     ax.set_title('Trees Needed to Offset CO2 Emissions')
     st.pyplot(fig)
