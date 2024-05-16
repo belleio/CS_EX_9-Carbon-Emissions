@@ -4,6 +4,7 @@
 3. ⁠Install all the necessary packages (streamlit, streamlit_extras, pandas, requests, matplotlib) using `pip install` using the terminal
 4.⁠ ⁠Run command `streamlit run testing.py`
 5.⁠ ⁠Website will open on localhost in the browser.
+P.S. If API shows client error, API key usage may have run out, replace with: IIEaBrVaxGPN1GGQW59RxA
 
 # Overview
 This project is a carbon emissions calculator that allows users to input details such as location or distance for flights, vehicles, or trains, and calculates the corresponding carbon emissions. Additionally, it displays the equivalent number of trees needed to offset those emissions, providing users with actionable information to reduce their carbon footprint.
