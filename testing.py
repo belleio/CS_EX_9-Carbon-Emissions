@@ -56,6 +56,11 @@ def flight_calculate_page():
         st.write('Distance (km):', round(results['distance_km'], 2))
 
         display_tree_images(trees_needed)
+        fig, ax = plt.subplots()
+        ax.bar(['Trees Needed'], [trees_needed], color='green')
+        ax.set_ylabel('Number of Trees')
+        ax.set_title('Trees Needed to Offset CO2 Emissions')
+        st.pyplot(fig)
 
     else:
         st.error("No results available. Please calculate CO2 emissions first.")
@@ -94,6 +99,12 @@ def vehicle_calculate_page():
 
         # Display tree image corresponding to the number of trees
     display_tree_images(trees_needed)
+    
+    fig, ax = plt.subplots()
+    ax.bar(['Trees Needed'], [trees_needed], color='green')
+    ax.set_ylabel('Number of Trees')
+    ax.set_title('Trees Needed to Offset CO2 Emissions')
+    st.pyplot(fig)
 
 
     # Display the custom HTML button for offsetting carbon footprint
@@ -131,6 +142,12 @@ def train_calculate_page():
         st.write(f'{trees_needed} trees to offset {carbon_emissions} kilograms of CO2.')
 
     display_tree_images(trees_needed)
+    
+    fig, ax = plt.subplots()
+    ax.bar(['Trees Needed'], [trees_needed], color='green')
+    ax.set_ylabel('Number of Trees')
+    ax.set_title('Trees Needed to Offset CO2 Emissions')
+    st.pyplot(fig)
 
     # Display the custom HTML button for offsetting carbon footprint
     button_html = carbon_offset_button()
