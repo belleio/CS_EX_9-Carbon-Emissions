@@ -255,8 +255,7 @@ def train_calculate_page():
 # Displays the home page
 def home_page():
     st.title("Wie nachhaltig sind Ihre Reisen?")
-    st.text("Curious about the environmental impact of your transportation choices?\nOur site visualizes the carbon emissions of different modes of travel, \nhelping you make more informed and eco-friendly decisions.\nJoin us in exploring sustainable transportation options for a greener future!.")
-    # add a description of project and maybe a picture
+    st.text("Sind Sie neugierig auf die Umweltauswirkungen der von Ihnen gewählten Verkehrsmittel?\nUnsere Website veranschaulicht die Kohlendioxidemissionen der verschiedenen Verkehrsmittel, \nund hilft Ihnen, fundierte und umweltfreundliche Entscheidungen zu treffen.\nErforschen Sie mit uns nachhaltige Transportmöglichkeiten für eine grünere Zukunft!")
 
     st.subheader("Which method of transport will you be taking?")
     selected_page = st.selectbox("Select Transport Mode", ("Plane", "Train", "Vehicle"))
