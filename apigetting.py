@@ -6,7 +6,7 @@ def get_carbon_emissions_flight(departure, destination):
     # Fetch the carbon emission of the flight based on the departure airport and destination airport
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer vGCdP7GLnaufE8td2noxZQ",
+        "Authorization": "Bearer MjRkRm1Qok0anWdKMidYCw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -29,7 +29,7 @@ def get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_i
     # Fetch the carbon emission of the car based on the distance unit, distance, and vehicle model id
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer vGCdP7GLnaufE8td2noxZQ",
+        "Authorization": "Bearer MjRkRm1Qok0anWdKMidYCw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -53,7 +53,7 @@ def get_train_carbon_emissions(distance_km):
     # Fetch the carbon emission of the train based on the distance 
     url = "https://www.carboninterface.com/api/v1/estimates"
     headers = {
-        "Authorization": "Bearer vGCdP7GLnaufE8td2noxZQ",
+        "Authorization": "Bearer MjRkRm1Qok0anWdKMidYCw",
         "Content-Type": "application/json"
     }
     payload = {
@@ -79,7 +79,7 @@ def get_vehicle_makes():
     # Returns an array of Vehicle Makes that can be queried for their specific Vehicle Models.
     url = "https://www.carboninterface.com/api/v1/vehicle_makes"
     headers = {
-        "Authorization": "Bearer vGCdP7GLnaufE8td2noxZQ",
+        "Authorization": "Bearer MjRkRm1Qok0anWdKMidYCw",
         "Content-Type": "application/json"
     }
     try:
@@ -96,7 +96,7 @@ def get_vehicle_models(vehicle_makes, selected_make):
     # Fetch the vehicle models based on the selected make
     url = f"https://www.carboninterface.com/api/v1/vehicle_makes/{vehicle_makes[selected_make]}/vehicle_models"
     headers = {
-        "Authorization": "Bearer vGCdP7GLnaufE8td2noxZQ",
+        "Authorization": "Bearer MjRkRm1Qok0anWdKMidYCw",
         "Content-Type": "application/json"
     }
     try:
