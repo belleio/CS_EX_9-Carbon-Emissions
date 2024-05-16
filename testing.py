@@ -4,7 +4,6 @@ import requests
 import base64
 import random
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
 # Emoji shower
 from streamlit_extras.let_it_rain import rain
 # Offset button
@@ -57,20 +56,43 @@ def flight_calculate_page():
         st.write('Distance (km):', round(results['distance_km'], 2))
 
         display_tree_images(trees_needed)
+
+        distance_km = results.get('distance_km')
+
         trees_needed_vehicle1 = (trees_needed * 1.5)
         trees_needed_train1 = (trees_needed / 70)
 
         # Plotting the comparison chart
         fig, ax = plt.subplots()
-        modes_of_transport = ['Flight', 'Vehicle (estimate)', 'Train (estimate)']
+        modes_of_transport = ['Flight', 'Vehicle', 'Train']
         trees_needed = [trees_needed, trees_needed_vehicle1, trees_needed_train1]
 
         ax.bar(modes_of_transport, trees_needed, color=['blue', 'red', 'green'])
+        ax.set_xlabel('Transport Type')
         ax.set_ylabel('Number of Trees')
         ax.set_title('Comparison of Trees Needed to Offset CO2 Emissions')
 
         st.pyplot(fig)
 
+                # Get train and car carbon emissions for the same distance
+        carbon_emissions_t = get_train_carbon_emissions(distance_km)
+        carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
+        # print(carbon_emissions)
+        # print(carbon_emissions_t)
+        # print(carbon_emissions_c[0])
+
+        colors = ['blue', 'green', 'red']
+        transport_types = ['Flight', 'Train', 'Vehicle']
+        carbon_emission = [co2_emissions,carbon_emissions_t,carbon_emissions_c[0]]
+        print(carbon_emission)
+        # Plotting the bar chart
+        plt.bar(transport_types, carbon_emission, color=colors)
+        plt.xlabel('Transport Type')
+        plt.ylabel('Carbon Emissions (kg)')
+        plt.title('Comparison of Carbon Emissions by Transport Type')
+        st.pyplot(plt)
+
+        st.write("Vehicle in question used for bar chart is: Alfa Romeo - Spider Veloce 2000")
 
     else:
         st.error("No results available. Please calculate CO2 emissions first.")
@@ -110,6 +132,7 @@ def vehicle_calculate_page():
         # Display tree image corresponding to the number of trees
         display_tree_images(trees_needed)
 
+
         trees_needed_flight1 = (trees_needed / 1.5)
         trees_needed_train2 = (trees_needed / 105)
 
@@ -119,10 +142,28 @@ def vehicle_calculate_page():
         trees_needed = [trees_needed_flight1, trees_needed, trees_needed_train2]
 
         ax.bar(modes_of_transport, trees_needed, color=['blue', 'red', 'green'])
+        ax.set_xlabel('Transport Type')
         ax.set_ylabel('Number of Trees')
         ax.set_title('Comparison of Trees Needed to Offset CO2 Emissions')
 
         st.pyplot(fig)
+
+                    # Calculate CO2 emissions for train to compare
+
+        carbon_emissions_t = get_train_carbon_emissions(results.get('distance_value', 0.0))
+        carbon_emissions_p = (co2_emissions / 2)
+                
+        colors = ['blue','red','green']
+        transport_types = ['Flight', 'Vehicle', 'Train']
+        carbon_emission = [carbon_emissions_p,co2_emissions,carbon_emissions_t]
+
+        print(carbon_emission)
+        # Plotting the bar chart of comparison
+        plt.bar(transport_types, carbon_emission, color=colors)
+        plt.xlabel('Transport Type')
+        plt.ylabel('Carbon Emissions (kg)')
+        plt.title('Comparison of Carbon Emissions by Transport Type')
+        st.pyplot(plt)
 
     else:
         st.error("No results available. Please calculate CO2 emissions first.")
@@ -163,8 +204,12 @@ def train_calculate_page():
 
         display_tree_images(trees_needed)
 
-        trees_needed_vehicle2 = (trees_needed * 105)
-        trees_needed_flight2 = (trees_needed * 70)
+        if trees_needed == 0:
+            trees_needed_vehicle2 = 52.5
+            trees_needed_flight2 = 35
+        else:
+            trees_needed_vehicle2 = trees_needed * 105
+            trees_needed_flight2 = trees_needed * 70
 
         # Plotting the comparison chart
         fig, ax = plt.subplots()
@@ -172,10 +217,29 @@ def train_calculate_page():
         trees_needed = [trees_needed_flight2, trees_needed_vehicle2, trees_needed]
 
         ax.bar(modes_of_transport, trees_needed, color=['blue', 'red', 'green'])
+        ax.set_xlabel('Transport Type')
         ax.set_ylabel('Number of Trees')
         ax.set_title('Comparison of Trees Needed to Offset CO2 Emissions')
 
         st.pyplot(fig)
+
+                    # Get the carbon emission of the car for the same distance
+        carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
+
+        carbon_emissions_p = (carbon_emissions * 70)
+
+        colors = ['blue','green','red']
+        transport_types = ['Flight', 'Train', 'Vehicle']
+        carbon_emission = [carbon_emissions_p,carbon_emissions,carbon_emissions_c[0]]
+        print(carbon_emission)
+            # Plotting the bar chart
+        plt.bar(transport_types, carbon_emission, color=colors)
+        plt.xlabel('Transport Type')
+        plt.ylabel('Carbon Emissions (kg)')
+        plt.title('Comparison of Carbon Emissions by Transport Type')
+        st.pyplot(plt)
+
+        st.write("Vehicle in question used for bar chart is: Alfa Romeo - Spider Veloce 2000")
 
     else:
         st.error("No results available. Please calculate CO2 emissions first.")
@@ -234,24 +298,6 @@ def home_page():
             # Calculate distance in kilometers
             distance_km = haversine_distance(departure_lat, departure_lon, destination_lat, destination_lon)
 
-            # Get train and car carbon emissions for the same distance
-            carbon_emissions_t = get_train_carbon_emissions(distance_km)
-            carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
-            # print(carbon_emissions)
-            # print(carbon_emissions_t)
-            # print(carbon_emissions_c[0])
-
-            colors = ['blue', 'green', 'red']
-            transport_types = ['Flight', 'Train', 'Car (Alfa Romeo - Spider Veloce 2000)']
-            carbon_emission = [carbon_emissions,carbon_emissions_t,carbon_emissions_c[0]]
-            print(carbon_emission)
-            # Plotting the bar chart
-            plt.bar(transport_types, carbon_emission, color=colors)
-            plt.xlabel('Transport Type')
-            plt.ylabel('Carbon Emissions (kg)')
-            plt.title('Comparison of Carbon Emissions by Transport Type')
-            st.pyplot(plt)
-
             # Store results in session state
             st.session_state.results = {
                 'departure_airport': departure_airport,
@@ -284,19 +330,7 @@ def home_page():
         if st.button('Calculate CO2 Emission'):
             # Call the function to calculate train emissions
             carbon_emissions = get_train_carbon_emissions(distance_km)
-            # Get the carbon emission of the car for the same distance
-            carbon_emissions_c = get_carbon_emissions_vehicles('km', distance_km, 'f46c68e5-4b0d-4136-a8cd-ed103cc202d1')
 
-            colors = ['blue','red']
-            transport_types = ['Train', 'Car (Alfa Romeo - Spider Veloce 2000)']
-            carbon_emission = [carbon_emissions,carbon_emissions_c[0]]
-            print(carbon_emission)
-            # Plotting the bar chart
-            plt.bar(transport_types, carbon_emission, color=colors)
-            plt.xlabel('Transport Type')
-            plt.ylabel('Carbon Emissions (kg)')
-            plt.title('Comparison of Carbon Emissions by Transport Type')
-            st.pyplot(plt)
             # Store the calculated emissions and distance in session state
             st.session_state.results = {
                 'distance_km': distance_km,
@@ -338,20 +372,6 @@ def home_page():
 
             # Calculate CO2 emissions for vehicle and get car type
             carbon_emissions, car_type = get_carbon_emissions_vehicles(distance_unit, distance_value, vehicle_model_id)
-            # Calculate CO2 emissions for train to compare
-            carbon_emissions_t = get_train_carbon_emissions(distance_value)
-            
-            colors = ['blue','red']
-            transport_types = ['Car', 'Train']
-            carbon_emission = [carbon_emissions,carbon_emissions_t]
-
-            print(carbon_emission)
-            # Plotting the bar chart of comparison
-            plt.bar(transport_types, carbon_emission, color=colors)
-            plt.xlabel('Transport Type')
-            plt.ylabel('Carbon Emissions (kg)')
-            plt.title('Comparison of Carbon Emissions by Transport Type')
-            st.pyplot(plt)
 
             # Store results in session state
             st.session_state.results = {
